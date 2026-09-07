@@ -1,0 +1,1883 @@
+/* =========================================================
+   2026 Graduation Exhibition - Base Stylesheet
+   - Minimal Monochrome Theme
+   - Responsive Layout & Multi-Page Semantic Structure
+   - Font: 'Noto Sans KR', sans-serif
+   ========================================================= */
+
+/* 1. Reset & Global Variables */
+:root {
+  --color-bg: #0d0d0d;
+  --color-text: #f2f2f2;
+  --color-muted: #8e8e8e;
+  --color-light-muted: #4a4a4a;
+  --color-border: #222222;
+  --color-placeholder-bg: #181818;
+  --color-placeholder-text: #666666;
+  --color-card-bg: #141414;
+  --color-card-hover: #1c1c1c;
+
+  --font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --header-height: 64px;
+  --max-content-width: 100%;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: auto;
+  overscroll-behavior-y: none;
+}
+
+/* 커스텀 불씨 커서 활성화 시 기본 커서 숨김 */
+.custom-cursor-active,
+.custom-cursor-active body,
+.custom-cursor-active a,
+.custom-cursor-active button,
+.custom-cursor-active input,
+.custom-cursor-active [role="button"] {
+  cursor: none !important;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================================
+   Pure Glowing Ember Gradient Cursor & Soft Wide Trail (Seamless Boundary)
+   ========================================================= */
+.ember-gradient-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  margin-top: -60px;
+  margin-left: -60px;
+  pointer-events: none;
+  z-index: 999999;
+  /* 55% 지점에서 이미 완전 투명(0)으로 수렴하여 외곽선/원형 경계가 물리적으로 생기지 않음 */
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 235, 190, 0.45) 0%,
+    rgba(255, 135, 30, 0.22) 16%,
+    rgba(235, 55, 0, 0.07) 32%,
+    rgba(180, 20, 0, 0.01) 45%,
+    rgba(0, 0, 0, 0) 58%
+  );
+  mix-blend-mode: screen;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.25s ease;
+  will-change: transform;
+}
+
+/* 뒤따라오는 넓고 부드러운 투명 불씨 잔상 오라 (완전 무경계) */
+.ember-cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 240px;
+  margin-top: -120px;
+  margin-left: -120px;
+  pointer-events: none;
+  z-index: 999998;
+  /* 52% 지점에서 완전 소멸하여 박스 외곽에 닿지 않음 */
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 120, 20, 0.16) 0%,
+    rgba(255, 50, 0, 0.06) 20%,
+    rgba(180, 20, 0, 0.01) 36%,
+    rgba(0, 0, 0, 0) 52%
+  );
+  mix-blend-mode: screen;
+  filter: blur(8px);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.3s ease;
+  will-change: transform;
+}
+
+/* 링크/버튼 호버 시 부드럽게 확산 */
+.ember-gradient-cursor.hovered {
+  transform: scale(1.35);
+  opacity: 1;
+}
+
+.ember-cursor-trail.hovered {
+  transform: scale(1.4);
+  opacity: 0.95;
+}
+
+/* 클릭 시 살짝 응축되는 피드백 */
+.ember-gradient-cursor.clicked {
+  transform: scale(0.75);
+}
+
+.ember-cursor-trail.clicked {
+  transform: scale(0.65);
+}
+
+/* 터치 기기에서는 커서 비활성화 및 기본 터치 허용 */
+@media (hover: none) {
+  body, a, button, input, [role="button"] {
+    cursor: auto;
+  }
+  .ember-gradient-cursor,
+  .ember-cursor-trail {
+    display: none;
+  }
+}
+
+main {
+  flex: 1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* 2. Common Utilities */
+.section-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 36px;
+}
+
+/* Gray Placeholder Box for media/images */
+.placeholder-box {
+  background-color: var(--color-placeholder-bg);
+  border: 1px dashed #2c2c2c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-placeholder-text);
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+
+/* Common Sub-page Header Banner */
+.page-header {
+  padding: calc(var(--header-height) + 36px) 0 40px;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 48px;
+}
+
+.page-header .page-category {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-muted);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.page-header .page-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.page-header .page-subtitle {
+  font-size: 1rem;
+  color: var(--color-muted);
+  margin-top: 10px;
+}
+
+/* =========================================================
+   1. Header (#site-header) - Floating Inverted Typography
+   - Always floating directly over page content (from y=0)
+   - Background-aware: Inverts to Black on light background, White on dark background
+   ========================================================= */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  z-index: 1000;
+  pointer-events: none; /* 빈 공간은 클릭 관통 */
+  mix-blend-mode: difference; /* 뒤의 배경을 감지하여 어두우면 화이트, 밝으면 블랙으로 자동 반전 */
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
+/* 스크롤을 내리면 자연스럽게 화면 위로 숨겨짐 */
+.site-header.header-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none !important;
+}
+
+.header-container {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+/* 타이포 요소: 순수 화이트(#ffffff)로 지정해야 difference 모드에서 밝은 곳은 블랙, 어두운 곳은 화이트로 완벽 반전 */
+.header-logo {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+}
+
+.header-logo a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  text-shadow: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  line-height: 1;
+}
+
+.header-logo a:hover {
+  opacity: 0.7;
+}
+
+.header-logo-img {
+  height: 26px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* 홈 화면 전용 네비게이션: difference 블렌딩 없이 불투명도 100% 순수 화이트로 표시 */
+.home-body .site-header {
+  mix-blend-mode: normal;
+}
+
+.home-body .header-logo {
+  position: relative;
+  z-index: 1001;
+}
+
+.home-body .header-logo a {
+  opacity: 1;
+  display: inline-flex;
+  align-items: center;
+  transform-origin: center center;
+  will-change: transform;
+  transition: opacity 0.2s ease;
+}
+
+.home-body .header-logo-img {
+  opacity: 1;
+  will-change: transform, filter;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5));
+}
+
+.home-body .header-logo a:hover {
+  opacity: 0.8;
+}
+
+.header-logo .divider {
+  color: #ffffff;
+  opacity: 0.45;
+}
+
+/* 네비게이션 타이포 우측 배치 */
+.main-nav {
+  margin-left: auto;
+  pointer-events: auto;
+}
+
+.main-nav .nav-list {
+  display: flex;
+  gap: 32px;
+}
+
+.main-nav .nav-item a {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  opacity: 0.75;
+  position: relative;
+  padding: 4px 0;
+  text-shadow: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.main-nav .nav-item a:hover {
+  opacity: 1;
+}
+
+/* Active Link: 밝은 화이트 볼드 타이포로 강조 */
+.main-nav .nav-item a.active {
+  color: #ffffff;
+  font-weight: 700;
+  opacity: 1;
+  text-shadow: none;
+}
+
+.main-nav .nav-item a.active::after {
+  display: none;
+}
+
+/* =========================================================
+   2. Main Page (Hero & Quick Gateways)
+   ========================================================= */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: calc(var(--header-height) + 24px) 36px 40px;
+  overflow: hidden;
+}
+
+/* 홈화면 히어로 배경: 완전한 블랙에서 부드럽게 원래 이미지로 디졸브되는 애니메이션 */
+@keyframes heroDissolveToImage {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.hero-bg-placeholder,
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  overflow: hidden;
+  border-bottom: 1px solid #141414;
+  z-index: 0;
+}
+
+.hero-bg-placeholder::before,
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.45) 0%,
+      rgba(0, 0, 0, 0.08) 35%,
+      rgba(0, 0, 0, 0.18) 70%,
+      rgba(0, 0, 0, 0.78) 100%
+    ),
+    url('images/home-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  animation: heroDissolveToImage 2.2s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
+  will-change: opacity;
+}
+
+.hero-bg-placeholder::after,
+.hero-bg::after {
+  display: none;
+}
+
+.hero-content {
+  margin: auto 0;
+  text-align: center;
+  max-width: 1100px;
+  align-self: center;
+}
+
+.hero-label {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--color-muted);
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+}
+
+.hero-bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-enter-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  border: 1px solid #444444;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background-color: #f2f2f2;
+  color: #0d0d0d;
+  transition: all 0.2s ease;
+}
+
+.hero-enter-btn:hover {
+  background-color: transparent;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.hero-scroll-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  letter-spacing: 0.05em;
+}
+
+/* =========================================================
+   Home Exhibition Statement - 불완전연소 (단일 문단 에디토리얼)
+   ========================================================= */
+.home-body {
+  background-color: #000000;
+}
+
+.home-exhibition-section {
+  padding: 160px 0 180px;
+  background-color: #000000;
+  border-bottom: 1px solid #141414;
+  position: relative;
+  z-index: 1;
+}
+
+.home-statement-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.home-statement-title {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin-bottom: 48px;
+  word-break: keep-all;
+}
+
+.home-statement-text p {
+  font-size: clamp(1.08rem, 1.6vw, 1.28rem);
+  line-height: 2.3;
+  color: #cfcfcf;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  word-break: keep-all;
+  text-align: justify;
+}
+
+/* =========================================================
+   3. Exhibition Page (#intro, #concept)
+   ========================================================= */
+.exhibition-page-content {
+  padding-bottom: 80px;
+}
+
+.intro-block {
+  margin-bottom: 80px;
+}
+
+.intro-slogan h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 40px;
+  max-width: 100%;
+}
+
+.intro-body {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 64px;
+}
+
+.intro-description p {
+  font-size: 1rem;
+  color: var(--color-muted);
+  margin-bottom: 20px;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+.intro-info .info-list {
+  border-top: 1px solid var(--color-border);
+}
+
+.intro-info .info-group {
+  display: flex;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9rem;
+}
+
+.intro-info dt {
+  width: 100px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.intro-info dd {
+  flex: 1;
+  color: var(--color-muted);
+}
+
+.concept-block {
+  padding-top: 60px;
+  border-top: 1px solid var(--color-border);
+}
+
+.concept-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.concept-media-box {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 320px;
+}
+
+.concept-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-muted);
+  margin-bottom: 12px;
+}
+
+.concept-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.concept-paragraph {
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  line-height: 1.8;
+  margin-bottom: 16px;
+  word-break: keep-all;
+}
+
+/* =========================================================
+   3. Projects Page (Full-screen 100vh Vertical Stack & Top-Center Info)
+   - One full-screen image per viewport, vertically stacked
+   - Free smooth scrolling (Stoppable anywhere)
+   - Title & artist displayed long across top-center (No dark hover overlay)
+   ========================================================= */
+.projects-fullwidth-page {
+  width: 100%;
+  padding: 0;
+  max-width: 100%;
+  margin: 0;
+}
+
+.projects-masonry-grid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 3px;
+  background-color: #000000;
+  column-count: unset;
+}
+
+@media (max-width: 1024px) {
+  .projects-masonry-grid {
+    display: flex;
+    flex-direction: column;
+    column-count: unset;
+    gap: 2px;
+  }
+}
+
+@media (max-width: 640px) {
+  .projects-masonry-grid {
+    display: flex;
+    flex-direction: column;
+    column-count: unset;
+    gap: 2px;
+  }
+  .projects-fullwidth-page {
+    padding: 0;
+  }
+}
+
+.masonry-project-item {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 540px;
+  position: relative;
+  background-color: #141414;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  overflow: hidden;
+  margin-bottom: 0;
+  display: block;
+  aspect-ratio: auto !important;
+  transition: opacity 0.25s ease;
+}
+
+/* 풀스크린 수직 배치에서는 개별 비율 대신 화면 100vh에 꽉 차도록 설정 */
+.ratio-square,
+.ratio-portrait-tall,
+.ratio-portrait,
+.ratio-portrait-soft,
+.ratio-landscape,
+.ratio-landscape-wide,
+.ratio-cinema {
+  aspect-ratio: auto !important;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* 미디어 컨테이너 */
+.project-media-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #101010 100%);
+}
+
+.project-media-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.masonry-project-item:hover .project-media-wrapper img {
+  transform: scale(1.015);
+}
+
+/* 세련된 모노크롬 플레이스홀더 데코레이션 (이미지만 표시하기 위해 숨김 처리) */
+.project-placeholder-deco {
+  display: none;
+}
+
+/* 각 개별 이미지 오버레이는 숨기고, 화면 중앙 고정 타이포 박스로 일원화 */
+.project-overlay {
+  display: none !important;
+}
+
+/* =========================================================
+   화면 가운데 고정된 순수 타이포 (박스/그림자 없이 가로배치)
+   - 얇고 정갈한 미니멀 폰트 (font-weight: 300~400)
+   - 어두운 배경: 전체 순백색(#ffffff) 100% 투명도
+   - 밝은 배경: 전체 칠흑 블랙(#000000) 100% 투명도
+   - 작품명과 작가명 가로 1줄 배치 & 크기 확대
+   ========================================================= */
+.project-fixed-caption {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  pointer-events: none;
+  max-width: 90vw;
+  width: max-content;
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-fixed-caption.caption-hidden {
+  opacity: 0;
+  transform: translate(-50%, -42%);
+}
+
+.fixed-caption-inner {
+  display: flex;
+  flex-direction: row; /* 가로 일렬 배치 */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 16px;
+  padding: 0; /* 박스 없음 */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: none !important; /* 전환 애니메이션 완전 제거 */
+}
+
+.fixed-caption-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: clamp(0.68rem, 0.9vw, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  padding: 3px 8px;
+  border-radius: 2px;
+  margin: 0;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  text-shadow: none !important;
+  border: 1px solid currentColor;
+  transition: none !important;
+}
+
+.fixed-caption-title {
+  font-size: clamp(1.2rem, 2.2vw, 1.65rem); /* 조금 더 키운 타이틀 크기 */
+  font-weight: 400; /* 얇고 정갈한 폰트 */
+  letter-spacing: 0.05em;
+  margin: 0;
+  line-height: 1.3;
+  white-space: nowrap;
+  text-shadow: none !important; /* 그림자 삭제 */
+  transition: none !important;
+}
+
+.fixed-caption-artist {
+  font-size: clamp(0.92rem, 1.3vw, 1.18rem); /* 조금 더 키운 작가명 크기 */
+  font-weight: 300; /* 아주 얇은 폰트 */
+  letter-spacing: 0.04em;
+  margin: 0;
+  line-height: 1.3;
+  white-space: nowrap;
+  text-shadow: none !important; /* 그림자 삭제 */
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: none !important;
+}
+
+.fixed-caption-artist::before {
+  content: "—";
+  font-weight: 300;
+  transition: none !important;
+}
+
+/* [테마 1] 어두운 배경 위: 전체 화이트(#ffffff) 투명도 100% */
+.project-fixed-caption.theme-light .fixed-caption-title,
+.project-fixed-caption.theme-light .fixed-caption-artist,
+.project-fixed-caption.theme-light .fixed-caption-badge {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  border-color: #ffffff !important;
+}
+
+.project-fixed-caption.theme-light .fixed-caption-artist::before {
+  color: #ffffff !important;
+  opacity: 0.6 !important;
+}
+
+/* [테마 2] 밝은 배경 위: 전체 블랙(#000000) 투명도 100% */
+.project-fixed-caption.theme-dark .fixed-caption-title,
+.project-fixed-caption.theme-dark .fixed-caption-artist,
+.project-fixed-caption.theme-dark .fixed-caption-badge {
+  color: #000000 !important;
+  opacity: 1 !important;
+  border-color: #000000 !important;
+}
+
+.project-fixed-caption.theme-dark .fixed-caption-artist::before {
+  color: #000000 !important;
+  opacity: 0.6 !important;
+}
+
+@media (max-width: 768px) {
+  .fixed-caption-inner {
+    gap: 8px 12px;
+    flex-wrap: wrap;
+  }
+  .fixed-caption-title {
+    font-size: 1.05rem;
+  }
+  .fixed-caption-artist {
+    font-size: 0.85rem;
+  }
+}
+
+.masonry-project-item:hover .project-team-badge,
+.masonry-project-item:hover .overlay-work-title,
+.masonry-project-item:hover .overlay-artist-name {
+  transform: translateY(0);
+}
+
+/* 기존 프로젝트 그리드(다른 곳에서 쓰일 수 있는 예비 스타일) */
+.projects-page-content {
+  padding-bottom: 100px;
+}
+
+.projects-filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 36px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.filter-categories {
+  display: flex;
+  gap: 16px;
+}
+
+.filter-btn {
+  background: none;
+  border: none;
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.filter-btn.active, .filter-btn:hover {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.project-count {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+/* 4-column Responsive Grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-bottom: 60px;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-thumb {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 12px;
+  transition: opacity 0.2s ease;
+}
+
+.project-card:hover .project-thumb {
+  opacity: 0.8;
+}
+
+.project-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.project-title {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.project-artist {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.projects-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-more {
+  padding: 12px 40px;
+  border: 1px solid var(--color-text);
+  background-color: transparent;
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-more:hover {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+/* =========================================================
+   5. Designer Page (Fullwidth 16 Profiles Grid)
+   ========================================================= */
+.designer-fullwidth-page {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.designer-fullwidth-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  background-color: #000000;
+}
+
+.designer-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background-color: #181818;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.designer-photo {
+  width: 100%;
+  height: 100%;
+  background-color: #181818;
+  border: none;
+  transition: transform 0.35s ease, background-color 0.2s ease;
+}
+
+.designer-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.designer-card:hover .designer-photo {
+  background-color: #222222;
+  transform: scale(1.03);
+}
+
+.designer-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.78);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px 12px;
+  color: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.designer-card:hover .designer-overlay {
+  opacity: 1;
+}
+
+.designer-name {
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.designer-name-en {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.designer-field {
+  font-size: 0.85rem;
+  color: #ff9d6c;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+/* Index Table (호환 유지) */
+.index-page-content {
+  padding-bottom: 100px;
+}
+
+.index-table-container {
+  border-top: 1px solid #333333;
+}
+
+.index-row {
+  display: grid;
+  grid-template-columns: 80px 2fr 1.5fr 1fr;
+  padding: 16px 8px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9rem;
+  align-items: center;
+  transition: background-color 0.15s ease;
+}
+
+.index-row:hover:not(.index-header-row) {
+  background-color: #161616;
+}
+
+.index-header-row {
+  font-weight: 700;
+  border-bottom: 1px solid #333333;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.index-num {
+  color: var(--color-light-muted);
+}
+
+.index-work-title {
+  font-weight: 500;
+  color: #f2f2f2;
+}
+
+.index-artist {
+  color: var(--color-muted);
+}
+
+.index-category {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+/* =========================================================
+   6. Archive Page
+   ========================================================= */
+.archive-page-content {
+  padding-bottom: 100px;
+}
+
+.archive-section-block {
+  margin-bottom: 60px;
+}
+
+.archive-section-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+  color: #ffffff;
+}
+
+.archive-years-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.archive-year-card {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card-bg);
+  padding: 24px;
+  transition: all 0.2s ease;
+}
+
+.archive-year-card:hover {
+  border-color: #444444;
+  background-color: var(--color-card-hover);
+}
+
+.archive-year-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 16px;
+}
+
+.archive-year-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #ffffff;
+}
+
+.archive-year-desc {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.archive-catalog-box {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card-bg);
+  padding: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.archive-catalog-info h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #ffffff;
+}
+
+.archive-catalog-info p {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.btn-download {
+  padding: 10px 20px;
+  border: 1px solid #444444;
+  font-size: 0.85rem;
+  background: transparent;
+  color: #f2f2f2;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-download:hover {
+  background-color: #f2f2f2;
+  color: #0d0d0d;
+}
+
+/* =========================================================
+   7. Footer (#site-footer)
+   ========================================================= */
+.site-footer {
+  background-color: #070707;
+  border-top: 1px solid var(--color-border);
+  padding: 60px 0 40px;
+  font-size: 0.85rem;
+  margin-top: auto;
+}
+
+.footer-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 36px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 36px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.footer-brand .footer-title {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.footer-brand .footer-dept {
+  color: var(--color-muted);
+}
+
+.footer-nav ul {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-nav a {
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+}
+
+.footer-nav a:hover {
+  color: var(--color-text);
+}
+
+.footer-middle {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 36px;
+  color: var(--color-muted);
+}
+
+.footer-contact p {
+  margin-bottom: 6px;
+}
+
+.footer-sns {
+  display: flex;
+  gap: 16px;
+  font-size: 0.85rem;
+}
+
+.footer-sns .sns-item {
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.footer-bottom {
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 0.75rem;
+}
+
+/* =========================================================
+   Responsive Breakpoints
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .concept-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .intro-body {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+
+  .archive-years-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 56px;
+  }
+
+  .site-header {
+    padding: 0;
+  }
+
+  .header-container,
+  .section-container,
+  .footer-container {
+    padding: 0 16px;
+  }
+
+  .header-logo a {
+    font-size: 0.85rem;
+  }
+
+  .header-logo-img {
+    height: 20px;
+  }
+
+  .main-nav .nav-list {
+    gap: 12px;
+  }
+
+  .main-nav .nav-item a {
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  .header-search-placeholder {
+    display: none;
+  }
+
+  .hero-section {
+    min-height: 480px;
+    padding: 30px 16px;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .home-exhibition-section {
+    padding: 100px 0 110px;
+  }
+
+  .home-statement-title {
+    margin-bottom: 32px;
+  }
+
+  .home-statement-text p {
+    line-height: 2.05;
+    text-align: left;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .projects-fullwidth-grid {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .designer-fullwidth-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+
+  .index-row {
+    grid-template-columns: 40px 1.5fr 1fr;
+  }
+  .index-category {
+    display: none;
+  }
+
+  .archive-years-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .archive-catalog-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .footer-top,
+  .footer-middle {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer-nav ul {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .footer-sns {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
+/* =========================================================
+   7. Designer Detail Page Styles (Full-width & Borderless)
+   ========================================================= */
+.designer-detail-page {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 0 100px;
+  margin: 0;
+}
+
+.detail-container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+/* Detail Navigation Bar */
+.detail-nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(var(--header-height) + 16px) 36px 24px;
+  margin-bottom: 32px;
+  border: none;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+  transition: color 0.2s ease;
+  border: none;
+}
+
+.back-link:hover {
+  color: #ffffff;
+}
+
+.back-arrow {
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.back-link:hover .back-arrow {
+  transform: translateX(-4px);
+}
+
+.designer-switchers {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+  border: none;
+}
+
+.switch-btn {
+  color: var(--color-muted);
+  transition: color 0.2s ease;
+  border: none;
+}
+
+.switch-btn:hover {
+  color: #ffffff;
+}
+
+.switch-divider {
+  color: #333333;
+}
+
+/* 1. Designer Profile Section (Full-width, Borderless) */
+.detail-profile-section {
+  display: grid;
+  grid-template-columns: minmax(360px, 460px) 1fr;
+  gap: 56px;
+  padding: 0 36px 64px;
+  margin-bottom: 0;
+  border: none;
+  align-items: flex-start;
+}
+
+.profile-photo-column {
+  width: 100%;
+  border: none;
+}
+
+.profile-photo-frame {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background-color: #141414;
+  border: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 40%, #1e1e1e 0%, #0f0f0f 100%);
+  border: none;
+}
+
+.photo-placeholder-tag {
+  font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  color: #666666;
+  text-transform: uppercase;
+  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 16px;
+  border-radius: 2px;
+}
+
+.profile-info-column {
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+
+.profile-header-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  border: none;
+}
+
+.profile-field-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f2f2f2;
+  background-color: #1c1c1c;
+  padding: 5px 14px;
+  border: none;
+  border-radius: 2px;
+}
+
+.profile-index {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  letter-spacing: 0.08em;
+  border: none;
+}
+
+.profile-name {
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 6px;
+  border: none;
+}
+
+.profile-name-en {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--color-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  border: none;
+}
+
+.profile-statement {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #cccccc;
+  margin-bottom: 36px;
+  word-break: keep-all;
+  max-width: 800px;
+  padding-left: 0;
+  border: none;
+}
+
+.profile-meta-grid {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  max-width: 800px;
+}
+
+.meta-row {
+  display: flex;
+  padding: 12px 0;
+  border: none;
+  font-size: 0.9rem;
+}
+
+.meta-label {
+  width: 140px;
+  font-weight: 700;
+  color: #6e6e6e;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+}
+
+.meta-value {
+  flex: 1;
+  color: #f0f0f0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: 0.02em;
+  border: none;
+}
+
+.meta-value a {
+  color: #f0f0f0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+  border: none;
+}
+
+.meta-value a:hover {
+  color: #ffffff;
+}
+
+/* 2. Selected Works Section (Full-width, Borderless) */
+.detail-works-section {
+  padding: 56px 36px 64px;
+  border: none;
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.works-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 28px;
+  border: none;
+}
+
+.works-section-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  border: none;
+}
+
+.works-section-subtitle {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  letter-spacing: 0.05em;
+  border: none;
+}
+
+.works-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+  border: none;
+}
+
+.detail-project-card {
+  background-color: #131313;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.detail-project-card:hover {
+  border: none;
+  outline: none;
+  background-color: #181818;
+  transform: translateY(-2px);
+}
+
+.project-card-image-box {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background-color: #171717;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.project-image-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  font-family: monospace;
+  color: #999999;
+  border: none;
+  border-radius: 2px;
+}
+
+.project-card-content {
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border: none;
+}
+
+.project-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  border: none;
+}
+
+.project-card-num {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: #5c5c5c;
+  letter-spacing: 0.1em;
+  border: none;
+}
+
+.project-card-category {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 3px 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #d0d0d0;
+  border-radius: 2px;
+}
+
+.project-card-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+  border: none;
+}
+
+.project-card-desc {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+  word-break: keep-all;
+  border: none;
+}
+
+/* Bottom Navigation */
+.detail-bottom-nav {
+  display: flex;
+  justify-content: center;
+  padding: 48px 36px 0;
+  border: none;
+}
+
+.bottom-back-btn {
+  display: inline-block;
+  padding: 14px 44px;
+  border: none;
+  outline: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  background-color: #1a1a1a;
+  transition: all 0.25s ease;
+  border-radius: 2px;
+}
+
+.bottom-back-btn:hover {
+  background-color: #f2f2f2;
+  color: #0d0d0d;
+  border: none;
+}
+
+/* Responsive for Detail Page */
+@media (max-width: 1024px) {
+  .detail-profile-section {
+    grid-template-columns: 320px 1fr;
+    gap: 36px;
+    padding: 0 24px 48px;
+  }
+  .works-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .detail-works-section {
+    padding: 40px 24px 48px;
+  }
+  .detail-nav-bar {
+    padding: 20px 24px;
+  }
+  .detail-bottom-nav {
+    padding: 36px 24px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .designer-detail-page {
+    padding: 0 0 60px;
+  }
+  .detail-profile-section {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 0 16px 40px;
+  }
+  .profile-photo-frame {
+    max-width: 100%;
+    margin: 0;
+  }
+  .detail-works-section {
+    padding: 32px 16px 40px;
+  }
+  .detail-nav-bar {
+    padding: 16px;
+  }
+}
+
+

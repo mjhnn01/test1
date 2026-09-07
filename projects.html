@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PROJECTS | 2026 명지대학교 디자인학부 인더스트리얼디자인 졸업전시</title>
+  <meta name="description" content="2026 졸업전시회 프로젝트 갤러리 - 개인작 26점, 팀작 3점 총 29점" />
+
+  <!-- Google Fonts: Noto Sans KR -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="projects-body">
+
+  <!-- =========================================================
+       Header
+       ========================================================= -->
+  <header id="site-header" class="site-header">
+    <div class="header-container">
+      <div class="header-logo">
+        <a href="index.html" aria-label="홈으로 이동">
+          <img src="images/logo.png" alt="로고" class="header-logo-img" />
+        </a>
+      </div>
+
+      <nav id="main-nav" class="main-nav" aria-label="메인 메뉴">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="projects.html" class="active">PROJECTS</a></li>
+          <li class="nav-item"><a href="exhibition.html">EXHIBITION</a></li>
+          <li class="nav-item"><a href="designer.html">DESIGNER</a></li>
+          <li class="nav-item"><a href="archive.html">ARCHIVE</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       Main Content: Staggered Masonry Grid (29 Projects)
+       - Images only (Text visible ONLY on mouse hover)
+       - Individual: 26 works
+       - Team: 3 works
+       ========================================================= -->
+  <main id="main-content" class="projects-fullwidth-page">
+
+    <!-- =========================================================
+         화면 가운데 고정된 타이포 박스 (스크롤에 따라 작품 정보 자동 변경)
+         ========================================================= -->
+    <div id="project-fixed-caption" class="project-fixed-caption" aria-live="polite">
+      <div class="fixed-caption-inner">
+        <span id="fixed-caption-badge" class="fixed-caption-badge" style="display: none;">TEAM</span>
+        <h2 id="fixed-caption-title" class="fixed-caption-title">기억의 지층</h2>
+        <p id="fixed-caption-artist" class="fixed-caption-artist">강태민</p>
+      </div>
+    </div>
+
+    <div class="projects-masonry-grid">
+
+      <!-- 01. 개인작 -->
+      <article class="masonry-project-item ratio-portrait-soft" id="project-01">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-01.jpg" alt="기억의 지층" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">기억의 지층</h3>
+          <p class="overlay-artist-name">강태민</p>
+        </div>
+      </article>
+
+      <!-- 02. 개인작 -->
+      <article class="masonry-project-item ratio-square" id="project-02">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-03.jpg" alt="비가시적 파동" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">비가시적 파동</h3>
+          <p class="overlay-artist-name">김민준</p>
+        </div>
+      </article>
+
+      <!-- 03. 개인작 -->
+      <article class="masonry-project-item ratio-landscape-wide" id="project-03">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-02.png" alt="도시 속의 쉼표" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">도시 속의 쉼표</h3>
+          <p class="overlay-artist-name">박도현</p>
+        </div>
+      </article>
+
+      <!-- 04. 개인작 -->
+      <article class="masonry-project-item ratio-portrait" id="project-04">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-06.jpg" alt="인공 정서의 잔상" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">인공 정서의 잔상</h3>
+          <p class="overlay-artist-name">배유진</p>
+        </div>
+      </article>
+
+      <!-- 05. 개인작 -->
+      <article class="masonry-project-item ratio-landscape" id="project-05">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-05.jpg" alt="활자의 리듬과 형태" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">활자의 리듬과 형태</h3>
+          <p class="overlay-artist-name">송하은</p>
+        </div>
+      </article>
+
+      <!-- 06. [팀작 01] -->
+      <article class="masonry-project-item ratio-cinema" id="project-06">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-04.jpg" alt="넥서스 모빌리티 에코시스템" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <span class="project-team-badge">TEAM PROJECT</span>
+          <h3 class="overlay-work-title">넥서스 모빌리티 에코시스템</h3>
+          <p class="overlay-artist-name">강태민 &middot; 신재원 &middot; 홍길동</p>
+        </div>
+      </article>
+
+      <!-- 07. 개인작 -->
+      <article class="masonry-project-item ratio-square" id="project-07">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-07.jpg" alt="생태적 전환의 시각화" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">생태적 전환의 시각화</h3>
+          <p class="overlay-artist-name">신재원</p>
+        </div>
+      </article>
+
+      <!-- 08. 개인작 -->
+      <article class="masonry-project-item ratio-portrait-tall" id="project-08">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-02.png" alt="모호한 공간의 기록" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">모호한 공간의 기록</h3>
+          <p class="overlay-artist-name">오채원</p>
+        </div>
+      </article>
+
+      <!-- 09. 개인작 -->
+      <article class="masonry-project-item ratio-portrait-soft" id="project-09">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-01.jpg" alt="촉각적 인터페이스" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">촉각적 인터페이스</h3>
+          <p class="overlay-artist-name">윤도윤</p>
+        </div>
+      </article>
+
+      <!-- 10. 개인작 -->
+      <article class="masonry-project-item ratio-landscape-wide" id="project-10">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-03.jpg" alt="순간의 무게" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">순간의 무게</h3>
+          <p class="overlay-artist-name">이서연</p>
+        </div>
+      </article>
+
+      <!-- 11. 개인작 -->
+      <article class="masonry-project-item ratio-portrait" id="project-11">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-05.jpg" alt="다음 세대의 언어" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">다음 세대의 언어</h3>
+          <p class="overlay-artist-name">이준서</p>
+        </div>
+      </article>
+
+      <!-- 12. 개인작 -->
+      <article class="masonry-project-item ratio-square" id="project-12">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-06.jpg" alt="경계의 잔향" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">경계의 잔향</h3>
+          <p class="overlay-artist-name">정수빈</p>
+        </div>
+      </article>
+
+      <!-- 13. [팀작 02] -->
+      <article class="masonry-project-item ratio-landscape" id="project-13">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-07.jpg" alt="바이오-스마트 케어 플랫폼" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <span class="project-team-badge">TEAM PROJECT</span>
+          <h3 class="overlay-work-title">바이오-스마트 케어 플랫폼</h3>
+          <p class="overlay-artist-name">오채원 &middot; 최지우 &middot; 한예린</p>
+        </div>
+      </article>
+
+      <!-- 14. 개인작 -->
+      <article class="masonry-project-item ratio-portrait-soft" id="project-14">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-01.jpg" alt="물성의 확장" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">물성의 확장</h3>
+          <p class="overlay-artist-name">조하람</p>
+        </div>
+      </article>
+
+      <!-- 15. 개인작 -->
+      <article class="masonry-project-item ratio-landscape-wide" id="project-15">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-06.jpg" alt="유동하는 구조" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">유동하는 구조</h3>
+          <p class="overlay-artist-name">최지우</p>
+        </div>
+      </article>
+
+      <!-- 16. 개인작 -->
+      <article class="masonry-project-item ratio-portrait" id="project-16">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-03.jpg" alt="파편화된 시간" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">파편화된 시간</h3>
+          <p class="overlay-artist-name">한예린</p>
+        </div>
+      </article>
+
+      <!-- 17. 개인작 -->
+      <article class="masonry-project-item ratio-square" id="project-17">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-05.jpg" alt="중첩의 미학" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">중첩의 미학</h3>
+          <p class="overlay-artist-name">홍길동</p>
+        </div>
+      </article>
+
+      <!-- 18. 개인작 -->
+      <article class="masonry-project-item ratio-portrait-tall" id="project-18">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-02.png" alt="보이지 않는 연결" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">보이지 않는 연결</h3>
+          <p class="overlay-artist-name">황시우</p>
+        </div>
+      </article>
+
+      <!-- 19. 개인작 -->
+      <article class="masonry-project-item ratio-portrait-soft" id="project-19">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-01.jpg" alt="침묵의 형태" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">침묵의 형태</h3>
+          <p class="overlay-artist-name">권민재</p>
+        </div>
+      </article>
+
+      <!-- 20. 개인작 -->
+      <article class="masonry-project-item ratio-landscape-wide" id="project-20">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-03.jpg" alt="빛과 그림자의 호흡" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">빛과 그림자의 호흡</h3>
+          <p class="overlay-artist-name">김하율</p>
+        </div>
+      </article>
+
+      <!-- 21. [팀작 03] -->
+      <article class="masonry-project-item ratio-cinema" id="project-21">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-04.jpg" alt="도시 자율주행 인터랙션" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <span class="project-team-badge">TEAM PROJECT</span>
+          <h3 class="overlay-work-title">도시 자율주행 인터랙션</h3>
+          <p class="overlay-artist-name">박도현 &middot; 배유진 &middot; 송하은 &middot; 황시우</p>
+        </div>
+      </article>
+
+      <!-- 22. 개인작 -->
+      <article class="masonry-project-item ratio-portrait" id="project-22">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-05.jpg" alt="감각의 전이" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">감각의 전이</h3>
+          <p class="overlay-artist-name">노은우</p>
+        </div>
+      </article>
+
+      <!-- 23. 개인작 -->
+      <article class="masonry-project-item ratio-square" id="project-23">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-06.jpg" alt="지속 가능한 순환" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">지속 가능한 순환</h3>
+          <p class="overlay-artist-name">문서진</p>
+        </div>
+      </article>
+
+      <!-- 24. 개인작 -->
+      <article class="masonry-project-item ratio-landscape" id="project-24">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-02.png" alt="일상의 재해석" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">일상의 재해석</h3>
+          <p class="overlay-artist-name">서지안</p>
+        </div>
+      </article>
+
+      <!-- 25. 개인작 -->
+      <article class="masonry-project-item ratio-portrait-tall" id="project-25">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-07.jpg" alt="공존의 조건" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">공존의 조건</h3>
+          <p class="overlay-artist-name">안도하</p>
+        </div>
+      </article>
+
+      <!-- 26. 개인작 -->
+      <article class="masonry-project-item ratio-portrait-soft" id="project-26">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-01.jpg" alt="기계적 서정" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">기계적 서정</h3>
+          <p class="overlay-artist-name">유하린</p>
+        </div>
+      </article>
+
+      <!-- 27. 개인작 -->
+      <article class="masonry-project-item ratio-square" id="project-27">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-03.jpg" alt="잔향의 기록" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">잔향의 기록</h3>
+          <p class="overlay-artist-name">장시후</p>
+        </div>
+      </article>
+
+      <!-- 28. 개인작 -->
+      <article class="masonry-project-item ratio-landscape-wide" id="project-28">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-02.png" alt="공간의 온도" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">공간의 온도</h3>
+          <p class="overlay-artist-name">정다은</p>
+        </div>
+      </article>
+
+      <!-- 29. 개인작 -->
+      <article class="masonry-project-item ratio-portrait" id="project-29">
+        <div class="project-media-wrapper">
+          <img src="images/projects/project-sample-04.jpg" alt="미래를 향한 시선" loading="lazy" />
+        </div>
+        <div class="project-overlay">
+          <h3 class="overlay-work-title">미래를 향한 시선</h3>
+          <p class="overlay-artist-name">차승우</p>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- =========================================================
+       Footer
+       ========================================================= -->
+  <footer id="site-footer" class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-title">2026 GRADUATION EXHIBITION</div>
+          <div class="footer-dept">명지대학교 디자인학부 인더스트리얼디자인</div>
+        </div>
+
+        <nav class="footer-nav" aria-label="하단 내비게이션">
+          <ul>
+            <li><a href="projects.html">PROJECTS</a></li>
+            <li><a href="exhibition.html">EXHIBITION</a></li>
+            <li><a href="designer.html">DESIGNER</a></li>
+            <li><a href="archive.html">ARCHIVE</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="footer-middle">
+        <div class="footer-contact">
+          <p><strong>Contact:</strong> 02-000-0000 | vcd2026@university.ac.kr</p>
+          <p><strong>Address:</strong> 서울특별시 종로구 대학로 57 홍익아트센터</p>
+        </div>
+
+        <div class="footer-sns" aria-label="SNS 바로가기 자리">
+          <span class="sns-item">[ Instagram ]</span>
+          <span class="sns-item">[ YouTube ]</span>
+          <span class="sns-item">[ Behance ]</span>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright">&copy; 2026 Department of Visual Communication Design. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
